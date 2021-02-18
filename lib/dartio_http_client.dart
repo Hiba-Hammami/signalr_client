@@ -35,6 +35,9 @@ class DartIOHttpClient extends SignalRHttpClient {
 
       final httpClient = new HttpClient();
 
+      httpClient.badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => true);
+
       final abortFuture = Future<void>(() {
         final completer = Completer<void>();
         if (request.abortSignal != null) {
