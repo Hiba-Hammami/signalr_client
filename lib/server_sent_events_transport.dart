@@ -62,6 +62,8 @@ class ServerSentEventsTransport implements ITransport {
     }
 
     _eventSource = EventSource(Uri.parse(url));
+    _eventSource.clientFactory().badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
 
     _eventSourceSub = _eventSource.events.listen((MessageEvent event) {
       if (onReceive != null) {
